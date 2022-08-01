@@ -23,11 +23,11 @@ Your Cloudflare Global API Key, optionally encrypted `ansible-vault encrypt_stri
       - domains:
           - "*.example3.com"
 
-The wildcard domain to create the cert for. For non-wildcard domains, I recommend using [geerlingguy.certbot](https://github.com/geerlingguy/ansible-role-certbot)
+The wildcard domain to create the cert for. For non-wildcard domains, I recommend using [geerlingguy.certbot](https://github.com/geerlingguy/ansible-role-certbot):
 
     certbot_cloudflare_acme_server: "{{ certbot_cloudflare_acme_test }}"
 
-    or
+or:
 
     certbot_cloudflare_acme_server: "{{ certbot_cloudflare_acme_live }}"
 
@@ -53,7 +53,7 @@ Including an example of how to use your role (for instance, with variables passe
               - "*.example3.com"
 
       roles:
-         - michaelpporter.certbot_cloudflare
+         - nikolay.certbot_cloudflare
 
 ## License
 
@@ -61,4 +61,4 @@ MIT / BSD
 
 ## Author Information
 
-This role was created in 2018 by [Michael Porter](https://www.michaelpporter.com/).
+This role was created in 2018 by [Michael Porter](https://www.michaelpporter.com/), and continued in 2022 by [Nikolay Kolev](https://nikolay.com).

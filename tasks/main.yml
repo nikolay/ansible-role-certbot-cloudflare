@@ -1,34 +1,10 @@
 ---
-# tasks file for certbot-cloudflare
-
-- name: Get software for APT repository management
-  ansible.builtin.apt: name={{ item }} state=present
-  with_items:
-    - build-essential
-    - curl
-    - libffi-dev
-    - libssl-dev
-    - python-apt
-    - python-dev
-    - python-pycurl
-
-- name: Check if certbot-dns-cloudflare plugin is installed
-  ansible.builtin.shell: certbot plugins | grep dns-cloudflare
-  register: cf_check
-  ignore_errors: true
-  changed_when: "cf_check is failed"
-
-- name: Install certbot-dns-cloudflare
-  ansible.builtin.shell: "cd {{ certbot_dir }}/certbot-dns-cloudflare && python setup.py install"
-  when: "cf_check is failed"
-
-- name: Create Certbot folder - sudouser
-  ansible.builtin.file:
-    path: /etc/letsencrypt
-    state: directory
-    owner: root
-    group: root
-    mode: 0700
+- name: Install certbot-dns-cloudflare plugin
+  ansible.builtin.include_role:
+    name: geerlingguy.pip
+    vars:
+      pip_install_packages:
+        - name: certbot-dns-cloudflare
 
 - name: Certbot template
   ansible.builtin.template:
@@ -38,9 +14,9 @@
     group: root
     mode: 0600
   with_items:
-    - src: "templates/confcloudflare.ini.j2"
-      dest: "/etc/letsencrypt/dnscloudflare.ini"
-    - src: "templates/letsencrypt_cli.ini.j2"
+    - src: "templates/dns-cloudflare.ini.j2"
+      dest: "/etc/letsencrypt/dns-cloudflare.ini"
+    - src: "templates/certbot-cli.ini.j2"
       dest: "/etc/letsencrypt/cli.ini"
 
 - name: Create certs
