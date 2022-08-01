@@ -2,9 +2,9 @@
 - name: Install certbot-dns-cloudflare plugin
   ansible.builtin.include_role:
     name: geerlingguy.pip
-    vars:
-      pip_install_packages:
-        - name: certbot-dns-cloudflare
+  vars:
+    pip_install_packages:
+      - name: certbot-dns-cloudflare
 
 - name: Certbot template
   ansible.builtin.template:
